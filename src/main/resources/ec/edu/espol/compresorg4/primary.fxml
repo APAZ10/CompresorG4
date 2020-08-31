@@ -6,25 +6,29 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="415.0" prefWidth="402.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.compresorg4.PrimaryController">
+<VBox alignment="CENTER" prefHeight="415.0" prefWidth="457.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.compresorg4.PrimaryController">
    <children>
+      <Label text="Compresor de Archivos">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
          <children>
-            <Label text="Label" />
-            <TextField />
-            <Button mnemonicParsing="false" onAction="#comprimir" text="Comprimir" />
+            <Label prefHeight="17.0" prefWidth="64.0" text="Archivo:" />
+            <TextField fx:id="txtComprimir" prefHeight="25.0" prefWidth="170.0" />
+            <Button mnemonicParsing="false" onAction="#comprimir" prefHeight="25.0" prefWidth="105.0" text="Comprimir" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
          <children>
-            <Label text="Label" />
-            <TextField />
-            <Button mnemonicParsing="false" onAction="#descomprimir" text="Descomprimir" />
+            <Label prefHeight="17.0" prefWidth="64.0" text="Archivo:" />
+            <TextField fx:id="txtDescomprimir" prefHeight="25.0" prefWidth="170.0" />
+            <Button mnemonicParsing="false" onAction="#descomprimir" prefHeight="25.0" prefWidth="105.0" text="Descomprimir" />
          </children>
       </HBox>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" onAction="#switchToSecondary" text="Switch to Secondary View" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
