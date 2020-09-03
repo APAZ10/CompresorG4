@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
@@ -18,13 +18,13 @@ public class PrimaryController implements Initializable{
     
     private FileChooser fileChooser;
     private String fileName;
-    private String ruta;
+    private String rutaComprimir;
+    private String rutaDescomprimir;
     
     @FXML
-    private TextField txtComprimir;
-    
+    private Label txtComprimir;
     @FXML
-    private TextField txtDescomprimir;
+    private Label txtDescomprimir;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -34,52 +34,64 @@ public class PrimaryController implements Initializable{
     }
     
     @FXML
-    private void comprimir() throws IOException{
-        //validar ruta no sea null, que se haya seleccionado primero, mostrar ruta
+    private void fileComprimir() throws IOException{
         File archivo = fileChooser.showOpenDialog(App.getStage());
         if(archivo==null){
             DialogMessage.NullAlert();
         }else{
             txtComprimir.setText(archivo.getName());
-            System.out.println(archivo.getName());
-            ruta = archivo.getAbsolutePath();
-            System.out.println(ruta);
-            String texto = Util.leerTexto(ruta);
-            System.out.println(ruta);
+            rutaComprimir = archivo.getAbsolutePath();
+        }
+    }
+    
+    @FXML
+    private void comprimir() throws IOException{
+        if(rutaComprimir==null){
+            DialogMessage.NullAlert();
+        }else{
+            String texto = Util.leerTexto(rutaComprimir);
             HashMap<String,Integer> mapaFreq = Util.calcularFrecuencias(texto);
             ArbolHuffman ht = new ArbolHuffman();
             ht.calcularArbol(mapaFreq);
             HashMap<String,String> codigosHauf = ht.calcularCodigos();
             String codificadoBinario = ArbolHuffman.codificar(texto, codigosHauf); 
             String codificadoHexa = Util.binarioHexadecimal(codificadoBinario);
-            Util.guardarTexto(ruta, codificadoHexa, codigosHauf);
+            //
+            System.out.println(codificadoHexa);
+            Util.guardarTexto(rutaComprimir, codificadoHexa, codigosHauf);
+            txtComprimir.setText("Seleccionar otro archivo");
+            rutaComprimir=null;
             DialogMessage.finalizarAlert();
-            System.out.println("todo correcto");
         }
-        
-        //verificaciones para bloquear el boton
     }
     
     @FXML
-    private void descomprimir() throws IOException{
-        //validar ruta no sea null, que se haya seleccionado primero, mostrar ruta
-        //debe existir el archivo _compress.txt
+    private void fileDescomprimir() throws IOException{
         File archivo = fileChooser.showOpenDialog(App.getStage());
         if(archivo==null){
             DialogMessage.NullAlert();
         }else{
             txtDescomprimir.setText(archivo.getName());
-            System.out.println(archivo.getName());
-            ruta = archivo.getAbsolutePath();
-            System.out.println(ruta);
-            String texto = Util.leerTexto(ruta);
+            rutaDescomprimir = archivo.getAbsolutePath();
+        }
+    }
+    
+    @FXML
+    private void descomprimir() throws IOException{
+        if(rutaDescomprimir==null){
+            DialogMessage.NullAlert();
+        }else{
+            String texto = Util.leerTexto(rutaDescomprimir);
             String textoBinario = Util.hexadecimalBinario(texto);
-            HashMap<String,String> mapDecodificador = Util.leerMapa(ruta);
+            HashMap<String,String> mapDecodificador = Util.leerMapa(rutaDescomprimir);
             String decodificado = ArbolHuffman.decodificar(textoBinario, mapDecodificador);
+            //
             System.out.println(decodificado);
-            Util.guardarTexto(ruta, decodificado);
+            Util.guardarTexto(rutaDescomprimir, decodificado);
+            txtDescomprimir.setText("Seleccionar otro archivo");
+            rutaDescomprimir=null;
             DialogMessage.finalizarAlert();
-        }//verificaciones para bloquear el boton
+        }
     }
     
     

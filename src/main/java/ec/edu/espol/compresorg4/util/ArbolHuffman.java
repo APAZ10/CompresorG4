@@ -90,17 +90,5 @@ public class ArbolHuffman {
         }
         return null;
     }
-    
-    //adicional para verificar si el arbol fue bien creado, eliminar al terminar
-    public boolean verificarSumaFreqHijos(){
-        return verificarSumaFreqHijos(root);
-    }
-    
-    private boolean verificarSumaFreqHijos(Node n){
-        if(n==null || (n.left==null && n.right==null)) return true;
-        int fleft = n.left.freq;//n.left!=null ? n.left.freq:0;
-        int fright = n.right.freq;//n.right!=null ? n.right.freq:0;
-        return (fleft+fright==n.freq)&&verificarSumaFreqHijos(n.left)&&verificarSumaFreqHijos(n.right);
-    }
-    
+
 }

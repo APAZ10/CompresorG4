@@ -91,7 +91,7 @@ public class Util {
     public static void guardarTexto (String ruta, String texto, HashMap<String,String> mapa){
         guardarTexto(ruta,texto);
         //cambiar como se guarda el nombre
-        try(FileWriter wr = new FileWriter(ruta+"_compress.txt");
+        try(FileWriter wr = new FileWriter(ruta.replace(".txt","_compress.txt"));
                 BufferedWriter bw = new BufferedWriter(wr)){
             for(String k: mapa.keySet())
                 wr.write(k+"|"+mapa.get(k)+"\n");
@@ -114,7 +114,7 @@ public class Util {
     public static HashMap<String,String> leerMapa (String ruta){
         HashMap<String,String> mapa = new HashMap<>();
         //cambiar como se guarda el nombre
-        try(FileReader reader = new FileReader(ruta+"_compress.txt");
+        try(FileReader reader = new FileReader(ruta.replace(".txt","_compress.txt"));
                 BufferedReader br = new BufferedReader(reader)){
             String line;
             while((line=br.readLine())!=null){
@@ -122,7 +122,7 @@ public class Util {
                 mapa.put(info[0], info[1]);
             }
         }catch(IOException ex){
-            System.out.println(ex.getMessage());
+            System.out.println("error");
         }
         return mapa;
     }
