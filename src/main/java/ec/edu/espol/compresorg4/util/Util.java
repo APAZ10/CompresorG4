@@ -71,7 +71,7 @@ public class Util {
         int cuenta = 0;
         for(char c: hexa.toCharArray()){
             if(c=='-') cuenta++;
-            else{
+            else if(c!='|'){
                 int decimal = Integer.valueOf(String.valueOf(c), 16);
                 String binario = Integer.toBinaryString(decimal);
                 int restante = 4-binario.length();
