@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="410.0" prefWidth="451.0" spacing="20.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.compresorg4.PrimaryController">
+<VBox alignment="CENTER" prefHeight="410.0" prefWidth="453.0" spacing="20.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.compresorg4.PrimaryController">
    <children>
       <Label alignment="CENTER" prefHeight="58.0" prefWidth="293.0" style="-fx-background-color: #B3B6B7;" text="Compresor de Archivos">
          <font>
