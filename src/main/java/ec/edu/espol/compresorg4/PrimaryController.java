@@ -49,7 +49,7 @@ public class PrimaryController implements Initializable{
         if(rutaComprimir==null){
             DialogMessage.NullAlert();
         }else{
-            String texto = Util.leerTexto(rutaComprimir);
+            String texto = Util.leerTextoDescomprimido(rutaComprimir);
             HashMap<String,Integer> mapaFreq = Util.calcularFrecuencias(texto);
             ArbolHuffman ht = new ArbolHuffman();
             ht.calcularArbol(mapaFreq);
@@ -81,7 +81,7 @@ public class PrimaryController implements Initializable{
         if(rutaDescomprimir==null){
             DialogMessage.NullAlert();
         }else{
-            String texto = Util.leerTexto(rutaDescomprimir);
+            String texto = Util.leerTextoComprimido(rutaDescomprimir);
             String textoBinario = Util.hexadecimalBinario(texto);
             HashMap<String,String> mapDecodificador = Util.leerMapa(rutaDescomprimir);
             String decodificado = ArbolHuffman.decodificar(textoBinario, mapDecodificador);

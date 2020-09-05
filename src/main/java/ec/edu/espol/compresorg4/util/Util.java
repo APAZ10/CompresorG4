@@ -19,7 +19,23 @@ import java.util.Map;
  */
 public class Util {
     
-    public static String leerTexto(String ruta){
+    public static String leerTextoDescomprimido(String ruta){
+        StringBuilder sb=new StringBuilder();
+        try(FileReader reader = new FileReader(ruta);
+                BufferedReader br = new BufferedReader(reader)){
+            //Implementar para varias lineas
+            String line;
+            while((line=br.readLine())!=null){
+                sb.append(line).append("*");
+            }
+            return sb.toString();
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    
+    public static String leerTextoComprimido(String ruta){
         StringBuilder sb=new StringBuilder();
         try(FileReader reader = new FileReader(ruta);
                 BufferedReader br = new BufferedReader(reader)){
