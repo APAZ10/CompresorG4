@@ -20,10 +20,15 @@ import java.util.Map;
 public class Util {
     
     public static String leerTexto(String ruta){
+        StringBuilder sb=new StringBuilder();
         try(FileReader reader = new FileReader(ruta);
                 BufferedReader br = new BufferedReader(reader)){
             //Implementar para varias lineas
-            return br.readLine();
+            String line;
+            while((line=br.readLine())!=null){
+                sb.append(line);
+            }
+            return sb.toString();
         }catch(IOException ex){
             System.out.println(ex.getMessage());
         }
@@ -104,8 +109,13 @@ public class Util {
     public static void guardarTexto (String ruta, String texto){
         try(FileWriter wr = new FileWriter(ruta);
                 BufferedWriter bw = new BufferedWriter(wr)){
-            //Se puede implementar para varias lineas?
-            bw.write(texto);
+            for(char c:texto.toCharArray()){
+                if(c!='*'){
+                    bw.write(c);
+                }else{
+                    bw.write("\n");
+                }
+            }
         }catch(IOException ex){
             System.out.println(ex.getMessage());
         }
