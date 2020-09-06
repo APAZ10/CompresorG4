@@ -90,8 +90,7 @@ public class PrimaryController implements Initializable{
                 System.out.println(decodificado);
                 Util.guardarTexto(rutaDescomprimir, decodificado);
                 txtDescomprimir.setText("Seleccionar otro archivo");
-                File f= new File(rutaDescomprimir.replace(".txt","_compress.txt"));
-                f.delete();
+                new File(rutaDescomprimir.replace(".txt","_compress.txt")).delete();
                 rutaDescomprimir=null;
             }
             DialogMessage.finalizarAlert();
