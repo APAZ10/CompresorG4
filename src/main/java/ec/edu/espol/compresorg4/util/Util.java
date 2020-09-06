@@ -7,6 +7,7 @@ package ec.edu.espol.compresorg4.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,6 +38,8 @@ public class Util {
     
     public static String leerTextoComprimido(String ruta){
         StringBuilder sb=new StringBuilder();
+        boolean verificar=new File(ruta.replace(".txt","_compress.txt")).exists();
+        if(verificar){
         try(FileReader reader = new FileReader(ruta);
                 BufferedReader br = new BufferedReader(reader)){
             //Implementar para varias lineas
@@ -47,6 +50,7 @@ public class Util {
             return sb.toString();
         }catch(IOException ex){
             System.out.println(ex.getMessage());
+        }
         }
         return null;
     }

@@ -82,14 +82,18 @@ public class PrimaryController implements Initializable{
             DialogMessage.NullAlert();
         }else{
             String texto = Util.leerTextoComprimido(rutaDescomprimir);
-            String textoBinario = Util.hexadecimalBinario(texto);
-            HashMap<String,String> mapDecodificador = Util.leerMapa(rutaDescomprimir);
-            String decodificado = ArbolHuffman.decodificar(textoBinario, mapDecodificador);
-            //
-            System.out.println(decodificado);
-            Util.guardarTexto(rutaDescomprimir, decodificado);
-            txtDescomprimir.setText("Seleccionar otro archivo");
-            rutaDescomprimir=null;
+            if(texto!=null){
+                String textoBinario = Util.hexadecimalBinario(texto);
+                HashMap<String,String> mapDecodificador = Util.leerMapa(rutaDescomprimir);
+                String decodificado = ArbolHuffman.decodificar(textoBinario, mapDecodificador);
+                //
+                System.out.println(decodificado);
+                Util.guardarTexto(rutaDescomprimir, decodificado);
+                txtDescomprimir.setText("Seleccionar otro archivo");
+                File f= new File(rutaDescomprimir.replace(".txt","_compress.txt"));
+                f.delete();
+                rutaDescomprimir=null;
+            }
             DialogMessage.finalizarAlert();
         }
     }
