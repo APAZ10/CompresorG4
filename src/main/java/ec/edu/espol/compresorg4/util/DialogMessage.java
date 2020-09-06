@@ -12,7 +12,7 @@ import javafx.scene.control.Alert;
  * @author lfrei
  */
 public class DialogMessage {
-    public static void NullAlert(){
+    public static void nullAlert(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Error Dialog");
         alert.setHeaderText("Seleccionar Archivo");
@@ -24,6 +24,13 @@ public class DialogMessage {
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Terminado");
         alert.setContentText("Proceso finalizado correctamente");
+        alert.showAndWait();
+    }
+    public static void errorAlert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("Operacion No Valida");
+        alert.setContentText("No se puede realizar la accion con el archivo seleccionado");
         alert.showAndWait();
     }
 }

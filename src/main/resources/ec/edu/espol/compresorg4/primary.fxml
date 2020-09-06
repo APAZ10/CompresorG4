@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="410.0" prefWidth="453.0" spacing="20.0" style="-fx-background-color: #2ECC71;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.compresorg4.PrimaryController">
+<VBox alignment="CENTER" prefHeight="410.0" prefWidth="453.0" spacing="20.0" style="-fx-background-color: #6CC551;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.compresorg4.PrimaryController">
    <children>
-      <Label alignment="CENTER" prefHeight="58.0" prefWidth="293.0" style="-fx-background-color: #B3B6B7;" text="Compresor de Archivos">
+      <Label alignment="CENTER" prefHeight="58.0" prefWidth="293.0" style="-fx-background-color: #6CC551;" text="Compresor de Archivos" textFill="#47624f">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -19,12 +19,12 @@
             <HBox alignment="CENTER" prefHeight="58.0" prefWidth="391.0" spacing="40.0" style="-fx-background-color: #48C9B0;">
                <children>
                   <Label fx:id="txtComprimir" alignment="CENTER" prefHeight="18.0" prefWidth="219.0" style="-fx-background-color: #ECF0F1;" text="Selección vacía" />
-                  <Button mnemonicParsing="false" onAction="#fileComprimir" text="Choose File" />
+                  <Button mnemonicParsing="false" onAction="#fileComprimir" style="-fx-background-color: #429EA6;" text="Choose File" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="49.0" prefWidth="391.0" style="-fx-background-color: #5DADE2;">
                <children>
-                  <Button mnemonicParsing="false" onAction="#comprimir" prefHeight="25.0" prefWidth="102.0" text="Comprimir" />
+                  <Button mnemonicParsing="false" onAction="#comprimir" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #429EA6;" text="Comprimir" />
                </children>
                <VBox.margin>
                   <Insets />
@@ -43,12 +43,12 @@
             <HBox alignment="CENTER" prefHeight="58.0" prefWidth="391.0" spacing="40.0" style="-fx-background-color: #5DADE2;">
                <children>
                   <Label fx:id="txtDescomprimir" alignment="CENTER" prefHeight="18.0" prefWidth="219.0" style="-fx-background-color: #ECF0F1;" text="Selección vacía" />
-                  <Button mnemonicParsing="false" onAction="#fileDescomprimir" text="Choose File" />
+                  <Button mnemonicParsing="false" onAction="#fileDescomprimir" style="-fx-background-color: #429EA6;" text="Choose File" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="391.0" style="-fx-background-color: #48C9B0;">
                <children>
-                  <Button mnemonicParsing="false" onAction="#descomprimir" prefHeight="25.0" prefWidth="111.0" text="Descomprimir" />
+                  <Button mnemonicParsing="false" onAction="#descomprimir" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #429EA6;" text="Descomprimir" />
                </children>
             </HBox>
          </children>

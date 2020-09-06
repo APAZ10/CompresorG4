@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -22,16 +21,18 @@ public class Util {
     
     public static String leerTextoDescomprimido(String ruta){
         StringBuilder sb=new StringBuilder();
-        try(FileReader reader = new FileReader(ruta);
-                BufferedReader br = new BufferedReader(reader)){
-            //Implementar para varias lineas
-            String line;
-            while((line=br.readLine())!=null){
-                sb.append(line).append("*");
+        boolean verificar=new File(ruta.replace(".txt","_compress.txt")).exists();
+        if(!verificar){
+            try(FileReader reader = new FileReader(ruta);
+                    BufferedReader br = new BufferedReader(reader)){
+                String line;
+                while((line=br.readLine())!=null){
+                    sb.append(line).append("*");
+                }
+                return sb.toString();
+            }catch(IOException ex){
+                System.out.println(ex.getMessage());
             }
-            return sb.toString();
-        }catch(IOException ex){
-            System.out.println(ex.getMessage());
         }
         return null;
     }
@@ -40,17 +41,16 @@ public class Util {
         StringBuilder sb=new StringBuilder();
         boolean verificar=new File(ruta.replace(".txt","_compress.txt")).exists();
         if(verificar){
-        try(FileReader reader = new FileReader(ruta);
-                BufferedReader br = new BufferedReader(reader)){
-            //Implementar para varias lineas
-            String line;
-            while((line=br.readLine())!=null){
-                sb.append(line);
+            try(FileReader reader = new FileReader(ruta);
+                    BufferedReader br = new BufferedReader(reader)){
+                String line;
+                while((line=br.readLine())!=null){
+                    sb.append(line);
+                }
+                return sb.toString();
+            }catch(IOException ex){
+                System.out.println(ex.getMessage());
             }
-            return sb.toString();
-        }catch(IOException ex){
-            System.out.println(ex.getMessage());
-        }
         }
         return null;
     }
@@ -59,7 +59,7 @@ public class Util {
         if(texto==null) return null;
         HashMap<String,Integer> mapa = new HashMap<>();
         for(char c: texto.toCharArray()){
-            String valor = String.valueOf(c); //comprobar
+            String valor = String.valueOf(c);
             if(mapa.containsKey(valor))
                 mapa.replace(valor, mapa.get(valor)+1);
             else
@@ -67,22 +67,22 @@ public class Util {
         }
         return mapa;
     }
-    //Hacer refactor
+
     public static String binarioHexadecimal(String binario){
         int completeZeros = 0;
         int longitud = binario.length();
         StringBuilder resultado = new StringBuilder();
-        for(int i=0; i<longitud;i++){
+        int ind = 0;
+        while(ind<longitud){
             StringBuilder sb = new StringBuilder();
             for(int j=0; j<4; j++){
-                if(i<longitud)
-                    sb.append(binario.charAt(i++));
+                if(ind<longitud)
+                    sb.append(binario.charAt(ind++));
                 else{
                     sb.append('0');
                     completeZeros++;
                 }
             }
-            i--; //evita saltarse chars, cambiar algoritmo
             int decimal = Integer.parseInt(sb.toString(), 2);
             resultado.append(Integer.toString(decimal,16));
         }
@@ -90,7 +90,7 @@ public class Util {
             resultado.append('-');
         return resultado.toString();       
     }
-    //Hacer refactor
+
     public static String hexadecimalBinario(String hexa){
         StringBuilder sb = new StringBuilder();
         int cuenta = 0;
@@ -115,7 +115,6 @@ public class Util {
     //method para guardar en archivo al comprimir y generar _compress.txt
     public static void guardarTexto (String ruta, String texto, HashMap<String,String> mapa){
         guardarTexto(ruta,texto);
-        //cambiar como se guarda el nombre
         try(FileWriter wr = new FileWriter(ruta.replace(".txt","_compress.txt"));
                 BufferedWriter bw = new BufferedWriter(wr)){
             for(String k: mapa.keySet())
@@ -125,16 +124,15 @@ public class Util {
         }
     }
     
-    //method para guardar en archivo al descomprimir
+    //method para guardar en archivo al descomprimir y comprimir
     public static void guardarTexto (String ruta, String texto){
         try(FileWriter wr = new FileWriter(ruta);
                 BufferedWriter bw = new BufferedWriter(wr)){
             for(char c:texto.toCharArray()){
-                if(c!='*'){
+                if(c!='*')
                     bw.write(c);
-                }else{
+                else
                     bw.write("\n");
-                }
             }
         }catch(IOException ex){
             System.out.println(ex.getMessage());
@@ -143,7 +141,6 @@ public class Util {
     
     public static HashMap<String,String> leerMapa (String ruta){
         HashMap<String,String> mapa = new HashMap<>();
-        //cambiar como se guarda el nombre
         try(FileReader reader = new FileReader(ruta.replace(".txt","_compress.txt"));
                 BufferedReader br = new BufferedReader(reader)){
             String line;

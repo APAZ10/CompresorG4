@@ -7,7 +7,6 @@ package ec.edu.espol.compresorg4.util;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.PriorityQueue;
 
 /**
@@ -18,8 +17,8 @@ public class ArbolHuffman {
     private Node root;
     
     private class Node {
-        private String data;
-        private Integer freq;
+        private final String data;
+        private final Integer freq;
         private Node left;
         private Node right;
         
@@ -49,19 +48,19 @@ public class ArbolHuffman {
         calcularCodigos("",resultado,root);
         return resultado;
     }
-    //refactor
+
     private void calcularCodigos(String binary, HashMap<String,String> mapa, Node n){
         if(n.left==null&&n.right==null) mapa.put(n.data, binary);
         else{
             calcularCodigos(binary.concat("1"),mapa,n.left);
-            calcularCodigos(binary.concat("0"),mapa,n.right); // implementar con string builder?
+            calcularCodigos(binary.concat("0"),mapa,n.right);
         }
     }
     
     public static String codificar (String texto, HashMap<String,String> mapa){
         StringBuilder sb = new StringBuilder();
         for(char c: texto.toCharArray()){
-            String codigo = mapa.get(String.valueOf(c)); //comprobar
+            String codigo = mapa.get(String.valueOf(c));
             sb.append(codigo);
         }
         return sb.toString();
@@ -72,9 +71,6 @@ public class ArbolHuffman {
         StringBuilder agrupador = new StringBuilder();
         for(char c: texto.toCharArray()){
             agrupador.append(c);
-            //agrupar hasta encontrar la primera coincidencia ya que
-            //los codigos son unicos
-            //refactor
             if(mapa.containsValue(agrupador.toString())){
                 resultado.append(getKeyFromValue(mapa,agrupador.toString()));
                 agrupador = new StringBuilder();
@@ -82,11 +78,11 @@ public class ArbolHuffman {
         }
         return resultado.toString();
     }
+    
     private static String getKeyFromValue(HashMap<String,String> mapa, String val){
         for (Entry<String, String> entry : mapa.entrySet()) {
-            if (Objects.equals(val, entry.getValue())) {
+            if (entry.getValue().equals(val)) 
                 return entry.getKey();
-            }
         }
         return null;
     }
