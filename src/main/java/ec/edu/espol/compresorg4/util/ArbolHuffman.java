@@ -6,6 +6,7 @@
 package ec.edu.espol.compresorg4.util;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 
@@ -28,7 +29,7 @@ public class ArbolHuffman {
         }    
     }
     
-    public void calcularArbol(HashMap<String,Integer> mapa){
+    public void calcularArbol(Map<String,Integer> mapa){
         PriorityQueue<Node> cola = new PriorityQueue<>((Node n1, Node n2)-> n1.freq-n2.freq);
         for(Entry<String, Integer> entry : mapa.entrySet())
             cola.offer(new Node(entry.getKey(),entry.getValue()));
@@ -43,13 +44,13 @@ public class ArbolHuffman {
         root = cola.poll();
     }
     
-    public HashMap<String,String> calcularCodigos (){
-        HashMap<String,String> resultado = new HashMap<>();
+    public Map<String,String> calcularCodigos (){
+        Map<String,String> resultado = new HashMap<>();
         calcularCodigos("",resultado,root);
         return resultado;
     }
 
-    private void calcularCodigos(String binary, HashMap<String,String> mapa, Node n){
+    private void calcularCodigos(String binary, Map<String,String> mapa, Node n){
         if(n.left==null&&n.right==null) mapa.put(n.data, binary);
         else{
             calcularCodigos(binary.concat("1"),mapa,n.left);
@@ -57,7 +58,7 @@ public class ArbolHuffman {
         }
     }
     
-    public static String codificar (String texto, HashMap<String,String> mapa){
+    public static String codificar (String texto, Map<String,String> mapa){
         StringBuilder sb = new StringBuilder();
         for(char c: texto.toCharArray()){
             String codigo = mapa.get(String.valueOf(c));
@@ -66,7 +67,7 @@ public class ArbolHuffman {
         return sb.toString();
     }
     
-    public static String decodificar (String texto, HashMap<String,String> mapa){
+    public static String decodificar (String texto, Map<String,String> mapa){
         StringBuilder resultado = new StringBuilder();
         StringBuilder agrupador = new StringBuilder();
         for(char c: texto.toCharArray()){
@@ -79,7 +80,7 @@ public class ArbolHuffman {
         return resultado.toString();
     }
     
-    private static String getKeyFromValue(HashMap<String,String> mapa, String val){
+    private static String getKeyFromValue(Map<String,String> mapa, String val){
         for (Entry<String, String> entry : mapa.entrySet()) {
             if (entry.getValue().equals(val)) 
                 return entry.getKey();

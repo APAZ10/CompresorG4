@@ -12,12 +12,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Paz
  */
 public class Util {
+    
+    private Util() {
+    }
     
     public static String leerTextoDescomprimido(String ruta){
         StringBuilder sb=new StringBuilder();
@@ -55,9 +59,9 @@ public class Util {
         return null;
     }
     
-    public static HashMap<String,Integer> calcularFrecuencias(String texto){
+    public static Map<String,Integer> calcularFrecuencias(String texto){
         if(texto==null) return null;
-        HashMap<String,Integer> mapa = new HashMap<>();
+        Map<String,Integer> mapa = new HashMap<>();
         for(char c: texto.toCharArray()){
             String valor = String.valueOf(c);
             if(mapa.containsKey(valor))
@@ -108,17 +112,16 @@ public class Util {
             }
         }
         int longitud = sb.toString().length();
-        String resultado = sb.delete(longitud-cuenta,longitud).toString();
-        return resultado;
+        return sb.delete(longitud-cuenta,longitud).toString();
     }
     
     //method para guardar en archivo al comprimir y generar _compress.txt
-    public static void guardarTexto (String ruta, String texto, HashMap<String,String> mapa){
+    public static void guardarTexto (String ruta, String texto, Map<String,String> mapa){
         guardarTexto(ruta,texto);
         try(FileWriter wr = new FileWriter(ruta.replace(".txt","_compress.txt"));
                 BufferedWriter bw = new BufferedWriter(wr)){
-            for(String k: mapa.keySet())
-                wr.write(k+"|"+mapa.get(k)+"\n");
+            for(Map.Entry<String,String> entry : mapa.entrySet())
+                wr.write(entry.getKey()+"|"+entry.getValue()+"\n");
         }catch(IOException ex){
             System.out.println(ex.getMessage());
         }
@@ -139,8 +142,8 @@ public class Util {
         }
     }
     
-    public static HashMap<String,String> leerMapa (String ruta){
-        HashMap<String,String> mapa = new HashMap<>();
+    public static Map<String,String> leerMapa (String ruta){
+        Map<String,String> mapa = new HashMap<>();
         try(FileReader reader = new FileReader(ruta.replace(".txt","_compress.txt"));
                 BufferedReader br = new BufferedReader(reader)){
             String line;

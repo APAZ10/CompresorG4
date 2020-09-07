@@ -12,6 +12,11 @@ import javafx.scene.control.Alert;
  * @author lfrei
  */
 public class DialogMessage {
+    
+    private DialogMessage(){
+        
+    }
+    
     public static void nullAlert(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Error Dialog");

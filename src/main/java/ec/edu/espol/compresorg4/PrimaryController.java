@@ -6,17 +6,21 @@ import ec.edu.espol.compresorg4.util.Util;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class PrimaryController implements Initializable{
     
     private FileChooser fileChooser;
-    private String fileName;
     private String rutaComprimir;
     private String rutaDescomprimir;
     
@@ -34,7 +38,7 @@ public class PrimaryController implements Initializable{
     
     @FXML
     private void fileComprimir() throws IOException{
-        File archivo = fileChooser.showOpenDialog(App.getStage());
+        File archivo = fileChooser.showOpenDialog(new Stage());
         if(archivo==null){
             DialogMessage.nullAlert();
         }else{
@@ -50,10 +54,10 @@ public class PrimaryController implements Initializable{
         }else{
             String texto = Util.leerTextoDescomprimido(rutaComprimir);
             if(texto!=null){
-                HashMap<String,Integer> mapaFreq = Util.calcularFrecuencias(texto);
+                Map<String,Integer> mapaFreq = Util.calcularFrecuencias(texto);
                 ArbolHuffman ht = new ArbolHuffman();
                 ht.calcularArbol(mapaFreq);
-                HashMap<String,String> codigosHauf = ht.calcularCodigos();
+                Map<String,String> codigosHauf = ht.calcularCodigos();
                 String codificadoBinario = ArbolHuffman.codificar(texto, codigosHauf); 
                 String codificadoHexa = Util.binarioHexadecimal(codificadoBinario);
                 Util.guardarTexto(rutaComprimir, codificadoHexa, codigosHauf);
@@ -67,7 +71,7 @@ public class PrimaryController implements Initializable{
     
     @FXML
     private void fileDescomprimir() throws IOException{
-        File archivo = fileChooser.showOpenDialog(App.getStage());
+        File archivo = fileChooser.showOpenDialog(new Stage());
         if(archivo==null){
             DialogMessage.nullAlert();
         }else{
@@ -84,10 +88,12 @@ public class PrimaryController implements Initializable{
             String texto = Util.leerTextoComprimido(rutaDescomprimir);
             if(texto!=null){
                 String textoBinario = Util.hexadecimalBinario(texto);
-                HashMap<String,String> mapDecodificador = Util.leerMapa(rutaDescomprimir);
+                Map<String,String> mapDecodificador = Util.leerMapa(rutaDescomprimir);
                 String decodificado = ArbolHuffman.decodificar(textoBinario, mapDecodificador);
                 Util.guardarTexto(rutaDescomprimir, decodificado);
-                new File(rutaDescomprimir.replace(".txt","_compress.txt")).delete();
+                FileSystem sistemaFicheros=FileSystems.getDefault();
+                Path rutaFichero=sistemaFicheros.getPath(rutaDescomprimir.replace(".txt","_compress.txt"));
+                Files.delete(rutaFichero);
                 DialogMessage.finalizarAlert();
             }else
                 DialogMessage.errorAlert();
