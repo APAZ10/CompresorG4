@@ -23,9 +23,13 @@ public class Util {
     private Util() {
     }
     
+    private static String getCompress(String ruta){
+        return ruta.replace(".txt","_compress.txt");
+    }
+    
     public static String leerTextoDescomprimido(String ruta){
         StringBuilder sb=new StringBuilder();
-        boolean verificar=new File(ruta.replace(".txt","_compress.txt")).exists();
+        boolean verificar=new File(getCompress(ruta)).exists();
         if(!verificar){
             try(FileReader reader = new FileReader(ruta);
                     BufferedReader br = new BufferedReader(reader)){
@@ -43,7 +47,7 @@ public class Util {
     
     public static String leerTextoComprimido(String ruta){
         StringBuilder sb=new StringBuilder();
-        boolean verificar=new File(ruta.replace(".txt","_compress.txt")).exists();
+        boolean verificar=new File(getCompress(ruta)).exists();
         if(verificar){
             try(FileReader reader = new FileReader(ruta);
                     BufferedReader br = new BufferedReader(reader)){
@@ -118,7 +122,7 @@ public class Util {
     //method para guardar en archivo al comprimir y generar _compress.txt
     public static void guardarTexto (String ruta, String texto, Map<String,String> mapa){
         guardarTexto(ruta,texto);
-        try(FileWriter wr = new FileWriter(ruta.replace(".txt","_compress.txt"));
+        try(FileWriter wr = new FileWriter(getCompress(ruta));
                 BufferedWriter bw = new BufferedWriter(wr)){
             for(Map.Entry<String,String> entry : mapa.entrySet())
                 wr.write(entry.getKey()+"|"+entry.getValue()+"\n");
@@ -144,7 +148,7 @@ public class Util {
     
     public static Map<String,String> leerMapa (String ruta){
         Map<String,String> mapa = new HashMap<>();
-        try(FileReader reader = new FileReader(ruta.replace(".txt","_compress.txt"));
+        try(FileReader reader = new FileReader(getCompress(ruta));
                 BufferedReader br = new BufferedReader(reader)){
             String line;
             while((line=br.readLine())!=null){
